@@ -46,12 +46,12 @@
 
 
  
-  3.  [_SESSION-2_](["**CLIQUEZ ICI"](https://herokucom-89d3c01614d5.herokuapp.com/); c'est  la même session
+  3.  [_**SESSION-2**_](["**CLIQUEZ ICI"](https://md-thomas-what34.000webhostapp.com/); c'est  la même session
 
 
 
 
-   [_PAIRING CODE_]("bientôt ")
+   [_**PAIRING CODE**_]("https://thomas9-339be853ee05.herokuapp.com/"); **Click**
 
 
    
@@ -68,7 +68,7 @@
 
 
    
-     2. **Cliquez** [**ICI POUR HEROKU**](https://dashboard.heroku.com/new?template=https://github.com/HACKING995/HACKING-MD955) POUR DEPLOYER SUR **Heroku**.
+     2. **Cliquez** [**ICI POUR HEROKU**](https://dashboard.heroku.com/new?template=https://github.com/HACKING995/HACKING-MD956) POUR DEPLOYER SUR **Heroku**.
 
 
 
