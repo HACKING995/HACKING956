@@ -71,3 +71,7 @@ zokou({
     }
   }
 });
+
+module.exports = {
+  antiDeleteHandler
+};
