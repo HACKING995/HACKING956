@@ -515,19 +515,21 @@ zokou({ nomCom: "gif×1", categorie: "Logo", reaction: "😋" }, async (dest, zk
     repondre(e);
   }
 })
-zokou({ nomCom: "avenger", categorie: "Logo", reaction: "⛩" }, async (dest, zk, commandeOptions) => {
-  let { ms, arg, repondre, prefixe } = commandeOptions;
-  try {
-    if (!arg || arg.length === 0) {
-      repondre(`Exemple : ${prefixe} hacking avenger`);
-      return;
-    }
-    const texte = arg.join(' ');
-    const url = `https://textpro.me/create-3d-avengers-logo-online-974.html?text=${encodeURIComponent(texte)}`;
-    const img = await mumaker.ephoto(url);
 
-    await zk.sendMessage(dest, { image: { url: img.image }, caption: "Logo par Hacking-Md" }, { quoted: ms });
-  } catch (e) {
-    repondre("🥵🥵 " + e);
+zokou({nomCom:"avenger",categorie:"Logo",reation:"💦"},async(dest,zk,commandeOptions)=>{
+
+  
+var {ms,repondre,arg,prefixe}=commandeOptions;
+  if(!arg||arg=="")
+  {
+    repondre(`${prefixe}water thomas`)
+    return;
   }
-})
+  try{
+    var lien ="https://textpro.me/create-3d-avengers-logo-online-974.html";
+    var img =await mumaker.ephoto(lien,arg);
+    repondre(" processing ...")
+    await zk.sendMessage(dest,{image:{url:img.image},caption:"  *Logo by Hacking-Md*"})
+  }catch(e){repondre(`🥵🥵 ${e}`)}
+
+});
