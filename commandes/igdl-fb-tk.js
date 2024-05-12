@@ -2,6 +2,8 @@ const {zokou} = require('../framework/zokou');
 const fs = require('fs');
 const getFBInfo = require("@xaviabot/fb-downloader");
 const { default: axios } = require('axios');
+const fg = require('api-dylux');
+const axios = require('axios');
 
 zokou({nomCom : "igdl" , categorie : "Download"},async (dest , zk , commandeOptions)=>{
   const {ms,repondre,arg} = commandeOptions ;
@@ -182,3 +184,35 @@ Description: ${result.desc}
     zk.sendMessage(dest, `Failed to download TikTok video. Please make sure the provided URL is valid.`, { quoted: ms });
   }
 });
+
+zokou({ nomCom: "tiktokstalk", categorie: "Downloader" }, async (dest, zk, commandeOptions) => {
+  const { arg, ms, repondre } = commandeOptions;
+  
+  if (!arg[0]) {
+    repondre(`✳️ Entrez le nom d'utilisateur d'un utilisateur TikTok`);
+    return;
+  }
+  
+  const username = arg[0].trim();
+  const fg = require('api-dylux');
+  
+  try {
+    const res = await fg.ttStalk(username);
+    
+    const txt = `
+┌──「 *TIKTOK STALK* 」
+▢ *🔖 Nom :* ${res.name}
+▢ *🔖 Nom d'utilisateur :* ${res.username}
+▢ *👥 Abonnés :* ${res.followers}
+▢ *🫂 Abonnements :* ${res.following}
+▢ *📌 Description :* ${res.desc}
+
+▢ *🔗 Lien* : https://www.tiktok.com/${res.username}
+└────────────`;
+
+    zk.sendMessage(dest, { url: res.profile, caption: txt }, { quoted: ms });
+  } catch (error) {
+    zk.sendMessage(dest, `❌ Impossible de récupérer les informations du profil TikTok. Veuillez vérifier le nom d'utilisateur.`, { quoted: ms });
+  }
+});
+
