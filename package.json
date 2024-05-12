@@ -27,6 +27,7 @@
     "@xaviabot/fb-downloader": "^1.0.14",
     "aptoide-scraper": "^1.0.1",
     "axios": "^1.4.0",
+    "api-dylux": "^1.6.9",
     "cache-manager": "latest",
     "canvacord": "^5.4.8",
     "chal": "^0.0.1-security.0",
