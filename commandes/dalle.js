@@ -22,7 +22,7 @@ zokou({
     const response = await axios.get(`https://api.maher-zubair.tech/ai/photoleap?q=${encodeURIComponent(imageName)}`);
 
     // Vérifier si la réponse contient une URL d'image
-    if (response.data && response.data.url) {
+    if (response.data && response.data.success) {
       const imageUrl = response.data.url;
 
       // Envoyer l'image générée dans le chat
