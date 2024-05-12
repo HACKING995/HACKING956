@@ -987,10 +987,10 @@ zokou({
     }
 } ) ;
 
-   zokou({ nomCom: "add", categorie: "Groupe", reaction: "👨" }, async (dest, zk, commandeOptions) => {
+   zokou({ nomCom: "add", categorie: "Group", reaction: "👨" }, async (dest, zk, commandeOptions) => {
   let { repondre, msgRepondu, infosGroupe, auteurMsgRepondu, verifGroupe, nomAuteurMessage, auteurMessage, superUser, idBot } = commandeOptions;
   let membresGroupe = verifGroupe ? await infosGroupe.participants : "";
-  if (!verifGroupe) { return repondre("Cette commande est réservée aux groupes."); }
+  if (!verifGroupe) { return repondre("This command is reserved for groups."); }
 
   const verifMembre = (user) => {
     for (const m of membresGroupe) {
@@ -1036,25 +1036,25 @@ zokou({
               });
 
               await sticker.toFile("st.webp");
-              const txt = `@${auteurMsgRepondu.split("@")[0]} a été ajouté au groupe.\n`;
+              const txt = `@${auteurMsgRepondu.split("@")[0]} was added to the group.\n`;
               await zk.groupParticipantsUpdate(dest, [auteurMsgRepondu], "add");
               zk.sendMessage(dest, { text: txt, mentions: [auteurMsgRepondu] });
             } else {
-              repondre("Ce membre ne peut pas être ajouté car il est un administrateur du groupe.");
+              repondre("This member cannot be added because he is a group administrator.");
             }
           } else {
-            return repondre("Cet utilisateur est déjà membre du groupe.");
+            return repondre("This user is already a member of the group.");
           }
         } else {
-          return repondre("Désolé, je ne peux pas effectuer cette action car je ne suis pas administrateur du groupe.");
+          return repondre("Sorry, I can't perform this action because I'm not a group administrator.");
         }
       } else {
-        repondre("Veuillez mentionner le membre à ajouter.");
+        repondre("Please mention the member to add.");
       }
     } else {
-      return repondre("Désolé, vous n'êtes pas autorisé à effectuer cette action car vous n'êtes pas administrateur du groupe.");
+      return repondre("Sorry, you are not authorized to perform this action because you are not an administrator of the group.");
     }
   } catch (e) {
-    repondre("Oops, une erreur s'est produite : " + e);
+    repondre("Oops, an error has occurred : " + e);
   }
 });
