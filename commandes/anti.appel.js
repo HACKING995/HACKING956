@@ -3,7 +3,7 @@ const delay = time => new Promise(res => setTimeout(res, time));
 
 zokou({
   nomCom: "anti-call",
-  categorie: "User",
+  categorie: "Group",
   avant: "before",
   admin: true,
   botAdmin: true,
@@ -12,7 +12,7 @@ zokou({
   const { repondre, mentionner } = commandeOptions;
 
   if (!origineMessage.isGroup) {
-    repondre("Cette commande ne peut être utilisée que dans un groupe.");
+    repondre("This command can only be used in a group.");
     return;
   }
 
@@ -44,9 +44,9 @@ zokou({
   }
 
   if (banUser.length === 0) {
-    repondre("Aucun utilisateur mentionné n'a été trouvé dans le groupe.");
+    repondre("No mentioned users were found in the group.");
   } else {
     const banUserMentions = bannedUsers.map(user => mentionner(user)).join(", ");
-    repondre(`Les utilisateurs suivants ont été bannis et bloqués pour avoir appelé le bot : ${bannedUserMentions}`);
+    repondre(`The following users have been banned and blocked for calling the bot: ${bannedUserMentions}`);
   }
 });
