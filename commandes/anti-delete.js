@@ -1,8 +1,8 @@
 const { zokou } = require("../framework/zokou");
 const fs = require('fs');
 
-// Variable de configuration pour suivre l'état de la commande anti-delete
-let antiDeleteActive = true;
+
+let antiDeleteActive = false; // Variable pour stocker l'état de la commande anti-delete
 
 zokou({
   nomCom: "anti-delete",
@@ -31,7 +31,7 @@ zokou({
     return;
   }
 
-  if (ms.message.protocolMessage && ms.message.protocolMessage.type === 0 && (conf.ADM).toLocaleLowerCase() === 'yes') {
+  if (ms.message.protocolMessage && ms.message.protocolMessage.type === 0 && (conf.ADM).toLowerCase() === 'yes') {
     if (ms.key.fromMe || ms.message.protocolMessage.key.fromMe) {
       console.log('Message supprimé me concernant');
       return;
@@ -71,7 +71,3 @@ zokou({
     }
   }
 });
-
-module.exports = {
-  antiDeleteHandler
-};
