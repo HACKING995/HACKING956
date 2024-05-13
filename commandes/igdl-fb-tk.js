@@ -136,10 +136,7 @@ zokou({ nomCom: "tiktok2", categorie: "Download", reaction: "🎵" }, async (des
     return;
   }
 
-  const videoUrl = arg.join(" ");
-
-  const axios = require('axios');
-  const cheerio = require('cheerio');
+  const videoUrl = arg.join(" ")
 
   async function tiktokdlF(url) {
     if (!/tiktok/.test(url)) {
