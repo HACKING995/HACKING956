@@ -51,7 +51,7 @@
 
 
 
-   [_**PAIRING CODE**_]([**click**]("https://thomas9-339be853ee05.herokuapp.com/"); **Click**
+   [_**PAIRING CODE**_](["**click**"]("https://thomas9-339be853ee05.herokuapp.com/"); **Click**
 
 
    
