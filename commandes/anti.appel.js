@@ -3,50 +3,74 @@ const delay = time => new Promise(res => setTimeout(res, time));
 
 zokou({
   nomCom: "anti-call",
-  categorie: "Group",
-  avant: "before",
-  admin: true,
-  botAdmin: true,
+  categorie: "General",
   reaction: "🚫"
 }, async (origineMessage, zk, commandeOptions) => {
   const { repondre, mentionner } = commandeOptions;
 
   if (!origineMessage.isGroup) {
-    repondre("This command can only be used in a group.");
-    return;
-  }
+    // Traitement si vous êtes mentionné individuellement sur votre compte WhatsApp personnel
+    const mentionedUsers = origineMessage.mentions.map(mention => mention.jid);
+    const bannedUsers = [];
 
-  const participants = origineMessage.participants;
-  const mentionedUsers = origineMessage.mentions.map(mention => mention.jid);
-  const banUsers = [];
+    for (const user of mentionedUsers) {
+      // Envoyer un message mentionnant l'utilisateur et son bannissement.
+      await zk.envoyerMessage(origineMessage, { text: `You are banned and blocked for calling the bot.`, mentions: [user] });
 
-  for (const participant of participants) {
-    if (mentionedUsers.includes(participant.jid)) {
-      // Send a message mentioning the user and their ban.
-      await zk.envoyerMessage(origineMessage, { text: `You are banned + blocked for calling the bot`, mentions: [participant.jid] });
+      // Ajouter l'utilisateur à la liste des utilisateurs bannis.
+      bannedUsers.push(user);
 
-      // Add the user to the bannedUsers array.
-      bannedUsers.push(participant.jid);
-
-      // Delay for 1 second before applying the ban.
+      // Délai d'une seconde avant d'appliquer le bannissement.
       await delay(1000);
 
-      // Update the user's status to banned and give them a warning.
-      global.db.data.users[participant.jid].banned = true;
-      global.db.data.users[participant.jid].warning = 1;
+      // Mettre à jour le statut de l'utilisateur comme banni et lui donner un avertissement.
+      global.db.data.users[user].banned = true;
+      global.db.data.users[user].warning = 1;
 
-      // Block the user from sending messages to the bot.
-      await zk.updateBlockStatus(participant.jid, "block");
-
-      // Remove the user from the group.
-      await zk.groupParticipantsUpdate(origineMessage.chatId, [participant.jid], "remove");
+      // Bloquer l'utilisateur pour qu'il ne puisse pas envoyer de messages au bot.
+      await zk.updateBlockStatus(user, "block");
     }
-  }
 
-  if (banUser.length === 0) {
-    repondre("No mentioned users were found in the group.");
+    if (bannedUsers.length === 0) {
+      repondre("No mentioned users were found.");
+    } else {
+      const bannedUserMentions = bannedUsers.map(user => mentionner(user)).join(", ");
+      repondre(`The following users have been banned and blocked for calling the bot: ${bannedUserMentions}`);
+    }
   } else {
-    const banUserMentions = bannedUsers.map(user => mentionner(user)).join(", ");
-    repondre(`The following users have been banned and blocked for calling the bot: ${bannedUserMentions}`);
+    // Traitement si la commande est utilisée dans un groupe
+    const participants = origineMessage.participants;
+    const mentionedUsers = origineMessage.mentions.map(mention => mention.jid);
+    const bannedUsers = [];
+
+    for (const participant of participants) {
+      if (mentionedUsers.includes(participant.jid)) {
+        // Envoyer un message mentionnant l'utilisateur et son bannissement.
+        await zk.envoyerMessage(origineMessage, { text: `You are banned and blocked for calling the bot.`, mentions: [participant.jid] });
+
+        // Ajouter l'utilisateur à la liste des utilisateurs bannis.
+        bannedUsers.push(participant.jid);
+
+        // Délai d'une seconde avant d'appliquer le bannissement.
+        await delay(1000);
+
+        // Mettre à jour le statut de l'utilisateur comme banni et lui donner un avertissement.
+        global.db.data.users[participant.jid].banned = true;
+        global.db.data.users[participant.jid].warning = 1;
+
+        // Bloquer l'utilisateur pour qu'il ne puisse pas envoyer de messages au bot.
+        await zk.updateBlockStatus(participant.jid, "block");
+
+        // Retirer l'utilisateur du groupe.
+        await zk.groupParticipantsUpdate(origineMessage.chatId, [participant.jid], "remove");
+      }
+    }
+
+    if (bannedUsers.length === 0) {
+      repondre("No mentioned users were found in the group.");
+    } else {
+      const bannedUserMentions = bannedUsers.map(user => mentionner(user)).join(", ");
+      repondre(`The following users have been banned and blocked for calling the bot: ${bannedUserMentions}`);
+    }
   }
 });
