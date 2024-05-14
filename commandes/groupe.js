@@ -989,7 +989,7 @@ zokou({
 
   
 zokou({ nomCom: "add", categorie: "Group", reaction: "👨" }, async (dest, zk, commandeOptions) => {
-  let { repondre, msgRepondu, infosGroupe, auteurMsgRepondu, verifGroupe, nomAuteurMessage, auteurMessage, superUser, idBot } = commandeOptions;
+  let { repondre, msgRepondu, infosGroupe, verifGroupe, nomAuteurMessage, auteurMessage, superUser, idBot } = commandeOptions;
   let membresGroupe = verifGroupe ? await infosGroupe.participants : "";
   if (!verifGroupe) { return repondre("This command is reserved for groups."); }
 
@@ -1014,8 +1014,8 @@ zokou({ nomCom: "add", categorie: "Group", reaction: "👨" }, async (dest, zk, 
 
   const a = verifGroupe ? membreAdmin(membresGroupe) : [];
 
-  const admin = verifGroupe ? a.includes(auteurMsgRepondu) : false;
-  const membre = verifMembre(auteurMsgRepondu);
+  const admin = verifGroupe ? a.includes(auteurMessage) : false;
+  const membre = verifMembre(auteurMessage);
   const autAdmin = verifGroupe ? a.includes(auteurMessage) : false;
   const zkAdmin = verifGroupe ? a.includes(idBot) : false;
 
@@ -1023,30 +1023,37 @@ zokou({ nomCom: "add", categorie: "Group", reaction: "👨" }, async (dest, zk, 
     if (autAdmin || superUser) {
       if (msgRepondu) {
         if (zkAdmin) {
-          if (!membre) {
-            if (!admin) {
-              const gifLink = "https://raw.githubusercontent.com/djalega8000/Zokou-MD/main/media/ajouter.gif";
-              const sticker = new Sticker(gifLink, {
-                pack: 'Hacking-Md', // The pack name
-                author: nomAuteurMessage, // The author name
-                type: StickerTypes.FULL, // The sticker type
-                categories: ['🤩', '🎉'], // The sticker category
-                id: '12345', // The sticker id
-                quality: 50, // The quality of the output file
-                background: '#000000'
-              });
+          const numeroRegex = /contact,\s*(\d+)/i; // Expression régulière pour extraire le numéro après "contact,"
+          const match = msgRepondu.match(numeroRegex);
+          if (match) {
+            const numeroEnvoye = match[1]; // Numéro extrait du message
+            if (!membre) {
+              if (!admin) {
+                const gifLink = "https://raw.githubusercontent.com/djalega8000/Zokou-MD/main/media/ajouter.gif";
+                const sticker = new Sticker(gifLink, {
+                  pack: 'Hacking-Md', // The pack name
+                  author: nomAuteurMessage, // The author name
+                  type: StickerTypes.FULL, // The sticker type
+                  categories: ['🤩', '🎉'], // The sticker category
+                  id: '12345', // The sticker id
+                  quality: 50, // The quality of the output file
+                  background: '#000000'
+                });
 
-              await sticker.toFile("st.webp");
-              const txt = `@${auteurMsgRepondu.split("@")[0]} was added to the group.\n`;
+                await sticker.toFile("st.webp");
+                const txt = `@${numeroEnvoye} was added to the group.\n`;
 
-              membresGroupe.push({ id: auteurMsgRepondu, admin: null }); // Ajoute le nouveau membre à la liste des membres du groupe
-              await zk.groupParticipantsUpdate(dest, [auteurMsgRepondu], "add");
-              zk.sendMessage(dest, { text: txt, mentions: [auteurMsgRepondu] });
+                membresGroupe.push({ id: numeroEnvoye, admin: null }); // Ajoute le nouveau membre à la liste des membres du groupe
+                await zk.groupParticipantsUpdate(dest, [numeroEnvoye], "add");
+                zk.sendMessage(dest, { text: txt, mentions: [numeroEnvoye] });
+              } else {
+                repondre("This member cannot be added because he is a group administrator.");
+              }
             } else {
-              repondre("This member cannot be added because he is a group administrator.");
+              return repondre("This user is already a member of the group.");
             }
           } else {
-            return repondre("This user is already a member of the group.");
+            return repondre("Please include a valid phone number after the keyword 'contact'.");
           }
         } else {
           return repondre("Sorry, I can't perform this action because I'm not a group administrator.");
@@ -1058,6 +1065,6 @@ zokou({ nomCom: "add", categorie: "Group", reaction: "👨" }, async (dest, zk, 
       return repondre("Sorry, you are not authorized to perform this action because you are not an administrator of the group.");
     }
   } catch (e) {
-    repondre("Oops, an error has occurred : " + e);
+    repondre("Oops, an error has occurred: " + e);
   }
 });
