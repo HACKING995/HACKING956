@@ -14,7 +14,7 @@ WORKDIR /root/zokou_Bot/
 
 
 COPY package.json .
-RUN npm install 
+RUN npm install. 
 COPY . .
 
 EXPOSE 5000
