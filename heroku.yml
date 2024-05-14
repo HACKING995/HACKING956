@@ -1,5 +1,5 @@
 build:
   docker:
       worker: Dockerfile
-run:
+npm:
    worker:   npm run zokou 
