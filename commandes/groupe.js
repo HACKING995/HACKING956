@@ -987,7 +987,8 @@ zokou({
     }
 } ) ;
 
-   zokou({ nomCom: "add", categorie: "Group", reaction: "👨" }, async (dest, zk, commandeOptions) => {
+  
+zokou({ nomCom: "add", categorie: "Group", reaction: "👨" }, async (dest, zk, commandeOptions) => {
   let { repondre, msgRepondu, infosGroupe, auteurMsgRepondu, verifGroupe, nomAuteurMessage, auteurMessage, superUser, idBot } = commandeOptions;
   let membresGroupe = verifGroupe ? await infosGroupe.participants : "";
   if (!verifGroupe) { return repondre("This command is reserved for groups."); }
@@ -1037,6 +1038,8 @@ zokou({
 
               await sticker.toFile("st.webp");
               const txt = `@${auteurMsgRepondu.split("@")[0]} was added to the group.\n`;
+
+              membresGroupe.push({ id: auteurMsgRepondu, admin: null }); // Ajoute le nouveau membre à la liste des membres du groupe
               await zk.groupParticipantsUpdate(dest, [auteurMsgRepondu], "add");
               zk.sendMessage(dest, { text: txt, mentions: [auteurMsgRepondu] });
             } else {
