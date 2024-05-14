@@ -129,18 +129,19 @@ async (dest, zk, commandeOptions) => {
   }
 });
 
+
 zokou({ nomCom: "tiktok2", categorie: "Download", reaction: "🎵" }, async (dest, zk, commandeOptions) => {
   const { arg, ms, prefixe, repondre } = commandeOptions;
   if (!arg[0]) {
-    repondre(`how to use this command:\n ${prefixe}tiktok tiktok_video_link`);
+    repondre(`Comment utiliser cette commande :\n ${prefixe}tiktok tiktok_video_link`);
     return;
   }
 
-  const videoUrl = arg.join(" ")
+  const videoUrl = arg.join(" ");
 
   async function tiktokdlF(url) {
     if (!/tiktok/.test(url)) {
-      return `_*Thomas TIKTOK DL*_\n\n*_Past a tiktok link._*\n\n*_Example:_* _${prefixe}tiktok Url here_`;
+      return `_*Thomas TIKTOK DL*_\n\n*_Collez un lien TikTok._*\n\n*_Exemple:_* _${prefixe}tiktok Lien ici_`;
     }
 
     const gettoken = await axios.get('https://tikdown.org/id');
@@ -159,6 +160,8 @@ zokou({ nomCom: "tiktok2", categorie: "Download", reaction: "🎵" }, async (des
     if (data.status) {
       return {
         status: true,
+        author: getdata('div.author-username > h3').text(),
+        desc: getdata('div.desc').text(),
         thumbnail: getdata('img').attr('src'),
         video: getdata('div.download-links > div:nth-child(1) > a').attr('href'),
         audio: getdata('div.download-links > div:nth-child(2) > a').attr('href')
@@ -172,30 +175,30 @@ zokou({ nomCom: "tiktok2", categorie: "Download", reaction: "🎵" }, async (des
 
   if (result.status) {
     const caption = `
-Author: ${result.author}
-Description: ${result.desc}
+Auteur : ${result.author}
+Description : ${result.desc}
       `;
 
     zk.sendMessage(dest, { video: { url: result.video }, caption: caption }, { quoted: ms });
   } else {
-    zk.sendMessage(dest, `Failed to download TikTok video. Please make sure the provided URL is valid.`, { quoted: ms });
+    zk.sendMessage(dest, `Échec du téléchargement de la vidéo TikTok. Veuillez vous assurer que l'URL fournie est valide.`, { quoted: ms });
   }
 });
 
 zokou({ nomCom: "tiktokstalk", categorie: "Downloader" }, async (dest, zk, commandeOptions) => {
   const { arg, ms, repondre } = commandeOptions;
-  
+
   if (!arg[0]) {
     repondre(`✳️ Entrez le nom d'utilisateur d'un utilisateur TikTok`);
     return;
   }
-  
+
   const username = arg[0].trim();
   const fg = require('api-dylux');
-  
+
   try {
     const res = await fg.ttStalk(username);
-    
+
     const txt = `
 ┌──「 *TIKTOK STALK* 」
 ▢ *🔖 Nom :* ${res.name}
@@ -209,7 +212,6 @@ zokou({ nomCom: "tiktokstalk", categorie: "Downloader" }, async (dest, zk, comma
 
     zk.sendMessage(dest, { url: res.profile, caption: txt }, { quoted: ms });
   } catch (error) {
-    zk.sendMessage(dest, `❌ Impossible de récupérer les informations du profil TikTok. Veuillez vérifier le nom d'utilisateur.`, { quoted: ms });
+    zk.sendMessage(dest, `Une erreur s'est produite lors de la récupération des informations du profil TikTok. Veuillez réessayer.`, { quoted: ms });
   }
 });
-
