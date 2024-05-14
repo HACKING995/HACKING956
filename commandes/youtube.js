@@ -28,12 +28,14 @@ zokou({
       const urlElement = videos[0].url;
           
        let infoMess = {
+         ╭━━⊱🌟 Y O U T U B E 🌟⊱━━╮
   image: { url: videos[0].thumbnail },
   caption: `*Song Name:* ${videos[0].title}
 *Uploaded:* ${videos[0].ago}
 *Author:* ${videos[0].author.name}
 *URL:* ${videos[0].url}
 
+⊱─━⊱༻*HACKING-MD by Thomas*༺⊰━─⊰
 *Choose format:*
 1. MP3
 2. MP4
