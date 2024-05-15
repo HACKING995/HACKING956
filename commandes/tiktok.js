@@ -2,6 +2,7 @@
 const { zokou } = require('../framework/zokou');
 const cheerio = require('cheerio');
 const axios = require('axios');
+const fg = require (api-dylux);
 
 zokou({ nomCom: "tiktok2", categorie: "Download", reaction: "🎵" }, async (dest, zk, commandeOptions) => {
   const { arg, ms, prefixe, repondre } = commandeOptions;
