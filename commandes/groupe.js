@@ -989,34 +989,43 @@ zokou({
 
   zokou({ nomCom: "add", categorie: 'Group', reaction: "👨🏿‍💼" }, async (dest, zk, commandeOptions) => {
   let { repondre, msgRepondu, infosGroupe, auteurMsgRepondu, verifGroupe, nomAuteurMessage, auteurMessage, superUser, idBot } = commandeOptions;
-  let membresGroupe = verifGroupe ? await infosGroupe.participants : ""
-  if (!verifGroupe) { return repondre("for groups only");} 
+  let membresGroupe = verifGroupe ? await infosGroupe.participants : "";
+  
+  if (!verifGroupe) {
+    return repondre("for groups only");
+  }
 
-  const participants = await message.groupMetadata(message.jid)
-		const isImAdmin = await isAdmin(participants, message.client.user.jid)
-		if (!isImAdmin) return await message.send(`_I'm not admin._`)
-		match = match || message.reply_message.jid
-		if (!match) return await message.send('Example : add 2250545065189')
-		// if (!match.startsWith('@@')) {
-		// 	match = jidToNum(match)
-		// 	const button = await genButtonMessage(
-		// 		[
-		// 			{ id: `@@`, text: 'NO' },
-		// 			{ id: `add @@${match}`, text: 'YES' },
-		// 		],
-		// 		`Your Number maybe banned, Do you want add @${match}`,
-		// 		''
-		// 	)
-		// 	return await message.send(
-		// 		button,
-		// 		{ contextInfo: { mentionedJid: [numToJid(match)] } },
-		// 		'button'
-		// 	)
-		// }
-		match = jidToNum(match)
-		const res = await message.Add(match)
-		if (res == '403') return await message.send('_Failed, Invite sent_')
-		else if (res && res != '200')
-			return await message.send(res, { quoted: message.data })
+  const participants = await zk.groupMetadata(dest);
+  const isImAdmin = participants.participants.find(p => p.jid === idBot).isAdmin;
+  
+  if (!isImAdmin) {
+    return repondre("_I'm not admin._");
+  }
 
+  const match = zk.message.reply_message?.jid;
+  
+  if (!match) {
+    return repondre('Example: add 2250545065189');
+  }
+  
+  const jidToNum = (jid) => {
+    return jid.replace(/[^0-9]/g, '');
+  };
+  
+  const numToJid = (num) => {
+    return `${num}@s.whatsapp.net`;
+  };
+  
+  const participantJid = jidToNum(match);
+  
+  const res = await zk.groupAdd(dest, numToJid(participantJid));
+  
+  if (res === '403') {
+    return repondre('_Failed, Invite sent_');
+  } else if (res && res !== '200') {
+    return repondre(res);
+  } else {
+    const participantName = match.split('@')[0];
+    return repondre(`Successfully added ${participantName} to the group.`);
+  }
 });
