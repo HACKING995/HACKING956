@@ -1,8 +1,35 @@
-import { promises, readFileSync } from 'fs'
-import { join } from 'path'
-import { xpRange } from '../lib/levelling.js'
-import moment from 'moment-timezone'
-import os from 'os'
+const util = require('util');
+const fs = require('fs-extra');
+const { zokou } = require(__dirname + "/../framework/zokou");
+const { format } = require(__dirname + "/../framework/mesfonctions");
+const os = require("os");
+const moment = require("moment-timezone");
+const s = require(__dirname + "/../set");
+
+zokou({ nomCom: "menu", categorie: "General" }, async (dest, zk, commandeOptions) => {
+    let { ms, repondre ,prefixe,nomAuteurMessage,mybotpic} = commandeOptions;
+    let { cm } = require(__dirname + "/../framework//zokou");
+    var coms = {};
+    var mode = "public";
+    
+    if ((s.MODE).toLocaleLowerCase() != "yes") {
+        mode = "private";
+    }
+
+
+    
+
+    cm.map(async (com, index) => {
+        if (!coms[com.categorie])
+            coms[com.categorie] = [];
+        coms[com.categorie].push(com.nomCom);
+    });
+
+    moment.tz.setDefault('Etc/GMT');
+
+// Créer une date et une heure en GMT
+const temps = moment().format('HH:mm:ss');
+const date = moment().format('DD/MM/YYYY');
 
 let groupmenu = `
    ✦ ───『 *group* 』─── ⚝
