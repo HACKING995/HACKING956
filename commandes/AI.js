@@ -54,8 +54,8 @@ fetch(`http://api.brainshop.ai/get?bid=177607&key=NwzhALqeO1kubFVD&uid=[uid]&msg
       }
   
       // Regrouper les arguments en une seule chaîne séparée par "-"
-      const image = arg.join(' ');
-      const response = await axios.fetch(`https://api.maher-zubair.tech/ai/photoleap?q=${image}`);
+      const image = arg.Buffer(' ');
+      const response = await axios.fetch(`https://api.maher-zubair.tech/ai/dalle?q=${image}`);
       
       const data = response.data;
       let caption = '*powered by Hacking-MD*';
