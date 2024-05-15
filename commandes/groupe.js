@@ -726,7 +726,7 @@ zokou({ nomCom: "apk", reaction: "✨", categorie: "Recherche" }, async (dest, z
 
     const downloadLink = appData.dllink;
     const captionText =
-      "『 *Zokou-Md App* 』\n\n*Name :* " + appData.name +
+      "『 *HACKING-Md App* 』\n\n*Name :* " + appData.name +
       "\n*Id :* " + appData["package"] +
       "\n*Last Update :* " + appData.lastup +
       "\n*Size :* " + appData.size +
@@ -1021,7 +1021,7 @@ zokou({ nomCom: "add", categorie: "Group", reaction: "👨" }, async (dest, zk, 
 
   try {
     if (autAdmin || superUser) {
-      if (msgRepondu) {
+      if (msgRepondu && typeof msgRepondu === "string") { // Ajout de la vérification
         if (zkAdmin) {
           const numeroRegex = /contact,\s*(\d+)/i; // Expression régulière pour extraire le numéro après "contact,"
           const match = msgRepondu.match(numeroRegex);
