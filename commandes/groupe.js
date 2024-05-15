@@ -987,85 +987,36 @@ zokou({
     }
 } ) ;
 
-  zokou({ nomCom: "add", categorie: "Group", reaction: "👨" }, async (dest, zk, commandeOptions) => {
-  let { repondre, msgRepondu, infosGroupe, verifGroupe, nomAuteurMessage, auteurMessage, superUser, idBot } = commandeOptions;
-  let membresGroupe = verifGroupe ? await infosGroupe.participants : "";
-  if (!verifGroupe) {
-    return repondre("Cette commande est réservée aux groupes.");
-  }
+  zokou({ nomCom: "add", categorie: 'Group', reaction: "👨🏿‍💼" }, async (dest, zk, commandeOptions) => {
+  let { repondre, msgRepondu, infosGroupe, auteurMsgRepondu, verifGroupe, nomAuteurMessage, auteurMessage, superUser, idBot } = commandeOptions;
+  let membresGroupe = verifGroupe ? await infosGroupe.participants : ""
+  if (!verifGroupe) { return repondre("for groups only");} 
 
-  const verifMembre = (user) => {
-    for (const m of membresGroupe) {
-      if (m.id === user) {
-        return true;
-      }
-    }
-    return false;
-  }
+  const participants = await message.groupMetadata(message.jid)
+		const isImAdmin = await isAdmin(participants, message.client.user.jid)
+		if (!isImAdmin) return await message.send(`_I'm not admin._`)
+		match = match || message.reply_message.jid
+		if (!match) return await message.send('Example : add 2250545065189')
+		// if (!match.startsWith('@@')) {
+		// 	match = jidToNum(match)
+		// 	const button = await genButtonMessage(
+		// 		[
+		// 			{ id: `@@`, text: 'NO' },
+		// 			{ id: `add @@${match}`, text: 'YES' },
+		// 		],
+		// 		`Your Number maybe banned, Do you want add @${match}`,
+		// 		''
+		// 	)
+		// 	return await message.send(
+		// 		button,
+		// 		{ contextInfo: { mentionedJid: [numToJid(match)] } },
+		// 		'button'
+		// 	)
+		// }
+		match = jidToNum(match)
+		const res = await message.Add(match)
+		if (res == '403') return await message.send('_Failed, Invite sent_')
+		else if (res && res != '200')
+			return await message.send(res, { quoted: message.data })
 
-  const membreAdmin = (membresGroupe) => {
-    const admin = [];
-    for (const m of membresGroupe) {
-      if (m.admin !== null) {
-        admin.push(m.id);
-      }
-    }
-    return admin;
-  }
-
-  const a = verifGroupe ? membreAdmin(membresGroupe) : [];
-
-  const admin = verifGroupe ? a.includes(auteurMessage) : false;
-  const membre = verifMembre(auteurMessage);
-  const autAdmin = verifGroupe ? a.includes(auteurMessage) : false;
-  const zkAdmin = verifGroupe ? a.includes(idBot) : false;
-
-  try {
-    if (autAdmin || superUser) {
-      if (msgRepondu && typeof msgRepondu === "string") {
-        if (zkAdmin) {
-          const numeroRegex = /contact,\s*(\d+)/i; // Expression régulière pour extraire le numéro après "contact,"
-          const match = msgRepondu.match(numeroRegex);
-          if (match) {
-            const numeroEnvoye = match[1]; // Numéro extrait du message
-            if (!membre) {
-              if (!admin) {
-                const gifLink = "https://raw.githubusercontent.com/djalega8000/Zokou-MD/main/media/ajouter.gif";
-                const sticker = new Sticker(gifLink, {
-                  pack: 'Hacking-Md', // Le nom du pack
-                  author: nomAuteurMessage, // Le nom de l'auteur
-                  type: StickerTypes.FULL, // Le type de sticker
-                  categories: ['🤩', '🎉'], // Les catégories du sticker
-                  id: '12345', // L'ID du sticker
-                  quality: 50, // La qualité de l'image de sortie
-                  background: '#000000'
-                });
-
-                await sticker.toFile("st.webp");
-                const txt = `@${numeroEnvoye} a été ajouté au groupe.\n`;
-
-                await zk.groupParticipantsUpdate(dest, [numeroEnvoye], "add"); // Utilisation de la fonction groupParticipantsUpdate pour ajouter le membre au groupe
-                zk.sendMessage(dest, { text: txt, mentions: [numeroEnvoye] });
-              } else {
-                repondre("Ce membre ne peut pas être ajouté car il est un administrateur du groupe.");
-              }
-            } else {
-              return repondre("Cet utilisateur est déjà membre du groupe.");
-            }
-          } else {
-            return repondre("Veuillez inclure un numéro de téléphone valide après le mot-clé 'contact'.");
-          }
-        } else {
-          return repondre("Désolé, je ne peux pas effectuer cette action car je ne suis pas un administrateur du groupe.");
-        }
-      } else {
-        repondre("Veuillez mentionner le membre à ajouter.");
-      }
-    } else {
-      return repondre("Désolé, vous n'êtes pas autorisé à effectuer cette action car vous n'êtes pas un administrateur du groupe.");
-    }
-  } catch (e) {
-    repondre("Oops, une erreur s'est produite : " + e);
-  }
 });
-
