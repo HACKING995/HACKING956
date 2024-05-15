@@ -987,11 +987,12 @@ zokou({
     }
 } ) ;
 
-  
-zokou({ nomCom: "add", categorie: "Group", reaction: "👨" }, async (dest, zk, commandeOptions) => {
+  zokou({ nomCom: "add", categorie: "Group", reaction: "👨" }, async (dest, zk, commandeOptions) => {
   let { repondre, msgRepondu, infosGroupe, verifGroupe, nomAuteurMessage, auteurMessage, superUser, idBot } = commandeOptions;
   let membresGroupe = verifGroupe ? await infosGroupe.participants : "";
-  if (!verifGroupe) { return repondre("This command is reserved for groups."); }
+  if (!verifGroupe) {
+    return repondre("Cette commande est réservée aux groupes.");
+  }
 
   const verifMembre = (user) => {
     for (const m of membresGroupe) {
@@ -1021,7 +1022,7 @@ zokou({ nomCom: "add", categorie: "Group", reaction: "👨" }, async (dest, zk, 
 
   try {
     if (autAdmin || superUser) {
-      if (msgRepondu && typeof msgRepondu === "string") { // Ajout de la vérification
+      if (msgRepondu && typeof msgRepondu === "string") {
         if (zkAdmin) {
           const numeroRegex = /contact,\s*(\d+)/i; // Expression régulière pour extraire le numéro après "contact,"
           const match = msgRepondu.match(numeroRegex);
@@ -1031,40 +1032,40 @@ zokou({ nomCom: "add", categorie: "Group", reaction: "👨" }, async (dest, zk, 
               if (!admin) {
                 const gifLink = "https://raw.githubusercontent.com/djalega8000/Zokou-MD/main/media/ajouter.gif";
                 const sticker = new Sticker(gifLink, {
-                  pack: 'Hacking-Md', // The pack name
-                  author: nomAuteurMessage, // The author name
-                  type: StickerTypes.FULL, // The sticker type
-                  categories: ['🤩', '🎉'], // The sticker category
-                  id: '12345', // The sticker id
-                  quality: 50, // The quality of the output file
+                  pack: 'Hacking-Md', // Le nom du pack
+                  author: nomAuteurMessage, // Le nom de l'auteur
+                  type: StickerTypes.FULL, // Le type de sticker
+                  categories: ['🤩', '🎉'], // Les catégories du sticker
+                  id: '12345', // L'ID du sticker
+                  quality: 50, // La qualité de l'image de sortie
                   background: '#000000'
                 });
 
                 await sticker.toFile("st.webp");
-                const txt = `@${numeroEnvoye} was added to the group.\n`;
+                const txt = `@${numeroEnvoye} a été ajouté au groupe.\n`;
 
-                membresGroupe.push({ id: numeroEnvoye, admin: null }); // Ajoute le nouveau membre à la liste des membres du groupe
-                await zk.groupParticipantsUpdate(dest, [numeroEnvoye], "add");
+                await zk.groupParticipantsUpdate(dest, [numeroEnvoye], "add"); // Utilisation de la fonction groupParticipantsUpdate pour ajouter le membre au groupe
                 zk.sendMessage(dest, { text: txt, mentions: [numeroEnvoye] });
               } else {
-                repondre("This member cannot be added because he is a group administrator.");
+                repondre("Ce membre ne peut pas être ajouté car il est un administrateur du groupe.");
               }
             } else {
-              return repondre("This user is already a member of the group.");
+              return repondre("Cet utilisateur est déjà membre du groupe.");
             }
           } else {
-            return repondre("Please include a valid phone number after the keyword 'contact'.");
+            return repondre("Veuillez inclure un numéro de téléphone valide après le mot-clé 'contact'.");
           }
         } else {
-          return repondre("Sorry, I can't perform this action because I'm not a group administrator.");
+          return repondre("Désolé, je ne peux pas effectuer cette action car je ne suis pas un administrateur du groupe.");
         }
       } else {
-        repondre("Please mention the member to add.");
+        repondre("Veuillez mentionner le membre à ajouter.");
       }
     } else {
-      return repondre("Sorry, you are not authorized to perform this action because you are not an administrator of the group.");
+      return repondre("Désolé, vous n'êtes pas autorisé à effectuer cette action car vous n'êtes pas un administrateur du groupe.");
     }
   } catch (e) {
-    repondre("Oops, an error has occurred: " + e);
+    repondre("Oops, une erreur s'est produite : " + e);
   }
 });
+
