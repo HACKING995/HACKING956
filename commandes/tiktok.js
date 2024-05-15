@@ -1,13 +1,11 @@
 
-const {zokou} = require('../framework/zokou');
-const fs = require('fs');
-const getFBInfo = require("@xaviabot/fb-downloader");
-const { default: axios } = require('axios');
-const fg = require('api-dylux');
+const { zokou } = require('../framework/zokou');
+const cheerio = require('cheerio');
 const axios = require('axios');
 
 zokou({ nomCom: "tiktok2", categorie: "Download", reaction: "🎵" }, async (dest, zk, commandeOptions) => {
   const { arg, ms, prefixe, repondre } = commandeOptions;
+
   if (!arg[0]) {
     repondre(`Comment utiliser cette commande :\n ${prefixe}tiktok tiktok_video_link`);
     return;
