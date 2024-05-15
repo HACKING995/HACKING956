@@ -46,32 +46,29 @@ fetch(`http://api.brainshop.ai/get?bid=177607&key=NwzhALqeO1kubFVD&uid=[uid]&msg
 
 
   zokou({ nomCom: "dalle", reaction: "📡", categorie: "IA" }, async (dest, zk, commandeOptions) => {
-    const { repondre, arg, ms } = commandeOptions;
-  
-    try {
-      if (!arg || arg.length === 0) {
-        return repondre(`Please enter the necessary information to generate the image.`);
-      }
-  
-      // Regrouper les arguments en une seule chaîne séparée par "-"
-      const image = arg.Buffer(' ');
-      const response = await axios.fetch(`https://api.maher-zubair.tech/ai/dalle?q=${image}`);
-      
-      const data = response.data;
-      let caption = '*powered by Hacking-MD*';
-      
-      if (data.status && data.owner && data.data) {
-        // Utiliser les données retournées par le service
-        const imageUrl = data.data;
-        zk.sendMessage(dest, { image: { url: imageUrl }, caption: caption }, { quoted: ms });
-      } else {
-        repondre("Error during image generation.");
-      }
-    } catch (error) {
-      console.error('Erreur:', error.message || 'Une erreur s\'est produite');
-      repondre("Oops, an error occurred while processing your request");
+  const { repondre, arg, ms } = commandeOptions;
+
+  try {
+    if (!arg || arg.length === 0) {
+      return repondre(`Please enter the necessary information to generate the image.`);
     }
-  });
+
+    // Regrouper les arguments en une seule chaîne séparée par "-"
+    const image = arg.join('-');
+    const response = await axios.get(`https://api.maher-zubair.tech/ai/dalle?q=${image}`, {
+      responseType: 'arraybuffer' // Demande une réponse au format buffer
+    });
+
+    const imageBuffer = response.data; // Récupère le buffer d'image de la réponse
+    let caption = '*powered by Hacking-MD*';
+
+    // Utiliser la méthode sendMessageWithMedia pour envoyer l'image en tant que buffer
+    zk.sendMessageWithMedia(dest, { buffer: imageBuffer }, { caption: caption, quoted: ms });
+  } catch (error) {
+    console.error('Erreur:', error.message || 'Une erreur s\'est produite');
+    repondre("Oops, an error occurred while processing your request");
+  }
+});
   
   zokou({ nomCom: "gpt", reaction: "🌐", categorie: "IA" }, async (dest, zk, commandeOptions) => {
   const { repondre, arg, ms } = commandeOptions;
