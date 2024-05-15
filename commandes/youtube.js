@@ -30,17 +30,89 @@ zokou({
        
       let infoMess = {
   image: { url: videos[0].thumbnail },
-   ╭━━⊱🌟 Y O U T U B E 🌟⊱━━╮
-  caption: `*Song Name:* ${videos[0].title}
+  caption: `╭━━⊱🌟 𝗛𝗔𝗖𝗞𝗜𝗡𝗚-𝗠𝗚 🌟⊱━━╮
+*Song Name:* ${videos[0].title}
 *Uploaded:* ${videos[0].ago}
 *Author:* ${videos[0].author.name}
 *URL:* ${videos[0].url}
 Views: ${videos[0].views}`,
-  ⊱─━⊱༻*𝗛𝗔𝗖𝗞𝗜𝗡𝗚-𝗠𝗗 by Thomas*༺⊰━─⊰
-  *Choose format:*\n1. MP3\n2. MP4\n\n_*Downloading...*_
-  whatsapp: Join my WhatsApp channel: '[https://whatsapp.com/channel/0029VaYrk3lIiRozw8zeoh00]'
+  whatsapp: "Join my WhatsApp channel: 'https://whatsapp.com/channel/0029VaYrk3lIiRozw8zeoh00'"
 };
      
+
+      
+       zk.sendMessage(origineMessage,infoMess,{quoted:ms}) ;
+      // Obtenir le flux audio de la vidéo
+      const audioStream = ytdl(urlElement, { filter: 'audioonly', quality: 'highestaudio' });
+
+      // Nom du fichier local pour sauvegarder le fichier audio
+      const filename = 'audio.mp3';
+
+      // Écrire le flux audio dans un fichier local
+      const fileStream = fs.createWriteStream(filename);
+      audioStream.pipe(fileStream);
+
+      fileStream.on('finish', () => {
+        // Envoi du fichier audio en utilisant l'URL du fichier local
+      
+
+     zk.sendMessage(origineMessage, { audio: { url:"audio.mp3"},mimetype:'audio/mp4' }, { quoted: ms,ptt: false });
+        console.log("Envoi du fichier audio terminé !");
+
+     
+      });
+
+      fileStream.on('error', (error) => {
+        console.error('Erreur lors de l\'écriture du fichier audio :', error);
+        repondre('Une erreur est survenue lors de l\'écriture du fichier audio.');
+      });
+    } else {
+      repondre('Aucune vidéo trouvée.');
+    }
+  } catch (error) {
+    console.error('Erreur lors de la recherche ou du téléchargement de la vidéo :', error);
+    
+    repondre('Une erreur est survenue lors de la recherche ou du téléchargement de la vidéo.');
+  }
+});
+
+
+
+zokou({
+  nomCom: "song",
+  categorie: "Search",
+  reaction: "💿"
+}, async (origineMessage, zk, commandeOptions) => {
+  const { ms, repondre, arg } = commandeOptions;
+     
+  if (!arg[0]) {
+    repondre("wich song do you want.");
+    return;
+  }
+
+  try {
+    let topo = arg.join(" ")
+    const search = await yts(topo);
+    const videos = search.videos;
+
+    if (videos && videos.length > 0 && videos[0]) {
+      const urlElement = videos[0].url;
+          
+       let infoMess = {
+          image: {url : videos[0]. thumbnail},
+         caption : `\n*song name :* _${videos[0].title}_
+
+*Time :* _${videos[0].timestamp}_
+
+*Url :* _${videos[0].url}_
+
+
+_*on downloading...*_\n\n`
+       }
+
+      
+
+      
 
       
        zk.sendMessage(origineMessage,infoMess,{quoted:ms}) ;
