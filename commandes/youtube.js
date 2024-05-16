@@ -30,12 +30,17 @@ zokou({
        
       let infoMess = {
   image: { url: videos[0].thumbnail },
-  caption: `╭━━⊱🌟 𝗛𝗔𝗖𝗞𝗜𝗡𝗚-𝗠𝗚 🌟⊱━━╮
+  caption: `╭━━⊱𝗛𝗔𝗖𝗞𝗜𝗡𝗚-𝗠𝗗⊱━━╮
 *Song Name:* ${videos[0].title}
+
 *Uploaded:* ${videos[0].ago}
+
 *Author:* ${videos[0].author.name}
+
 *URL:* ${videos[0].url}
+
 Views: ${videos[0].views}`,
+        
   whatsapp: "Join my WhatsApp channel: 'https://whatsapp.com/channel/0029VaYrk3lIiRozw8zeoh00'"
 };
      
