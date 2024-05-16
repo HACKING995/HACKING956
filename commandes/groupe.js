@@ -987,7 +987,7 @@ zokou({
     }
 } ) ;
 
-  zokou({ nomCom: "add", categorie: 'Group', reaction: "👨🏿‍💼" }, async (dest, zk, commandeOptions) => {
+zokou({ nomCom: "add", categorie: 'Group', reaction: "👨🏿‍💼" }, async (dest, zk, commandeOptions) => {
   let { repondre, msgRepondu, infosGroupe, auteurMsgRepondu, verifGroupe, nomAuteurMessage, auteurMessage, superUser, idBot } = commandeOptions;
   let membresGroupe = verifGroupe ? await infosGroupe.participants : "";
   
@@ -996,9 +996,14 @@ zokou({
   }
 
   const participants = await zk.groupMetadata(dest);
-  const isImAdmin = participants.participants.find(p => p.jid === idBot).isAdmin;
   
-  if (!isImAdmin) {
+  if (!participants) {
+    return repondre("Failed to retrieve group information");
+  }
+  
+  const botParticipant = participants.participants.find(p => p.jid === idBot);
+  
+  if (!botParticipant || !botParticipant.isAdmin) {
     return repondre("_I'm not admin._");
   }
 
@@ -1029,3 +1034,5 @@ zokou({
     return repondre(`Successfully added ${participantName} to the group.`);
   }
 });
+  
+  
