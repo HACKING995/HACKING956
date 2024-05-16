@@ -117,40 +117,39 @@ zokou({ nomCom: "thomas", reaction: "🌏", categorie: "IA" }, async (dest, zk, 
   console.log(data.completion);
 });
 
-let chatActivated = false;
+zokou({nomCom:"chat",reaction:"👨‍🏫",categorie:"IA"},async(dest,zk,commandeOptions)=>{
 
-zokou({nomCom: "chat", reaction: "📡", categorie: "IA"}, async (dest, zk, commandeOptions) => {
-  const {repondre, ms, arg} = commandeOptions;
+  const {repondre,ms,arg}=commandeOptions;
+  
+    if(!arg || !arg[0])
+    {return repondre("yes I'm listening to you.")}
+    //var quest = arg.join(' ');
+  try{
+    
+    
+const message = await traduire(arg.join(' '),{ to : 'en'});
+ console.log(message)
+fetch(`http://api.brainshop.ai/get?bid=177607&key=NwzhALqeO1kubFVD&uid=[uid]&msg=${message}`)
+.then(response => response.json())
+.then(data => {
+  const botResponse = data.cnt;
+  console.log(botResponse);
 
-  // Vérifier si la commande "chat" est activée
-  if (arg && arg[0] === 'on') {
-    chatActivated = true;
-    repondre("La commande 'chat' est maintenant activée. Je peux discuter avec vous.");
-    await continuerConversation(dest, zk, arg.slice(1).join(' '));
-  } else if (arg && arg[0] === 'off') {
-    chatActivated = false;
-    repondre("La commande 'chat' est maintenant désactivée.");
-  } else if (chatActivated) {
-    await continuerConversation(dest, zk, arg.join(' '));
-  } else {
-    repondre("La commande 'chat' est désactivée. Pour l'activer, utilisez 'chat on'.");
-  }
+  traduire(botResponse, { to: 'en' })
+    .then(translatedResponse => {
+      repondre(translatedResponse);
+    })
+    .catch(error => {
+      console.error('Error when translating into French :', error);
+      repondre('Error when translating into French');
+    });
+})
+.catch(error => {
+  console.error('Error requesting BrainShop :', error);
+  repondre('Error requesting BrainShop');
 });
 
-async function continuerConversation(dest, zk, message) {
-  try {
-    // Traduire le message en anglais
-    const messageEnglish = await traduire(message, { to: 'en' });
-
-    // Envoyer la requête à BrainShop
-    const response = await fetch(`http://api.brainshop.ai/get?bid=177607&key=NwzhALqeO1kubFVD&uid=[uid]&msg=${messageEnglish}`);
-    const data = await response.json();
-    const botResponse = data.cnt;
-
-    // Traduire la réponse en français
-    const translatedResponse = await traduire(botResponse, { to: 'fr' });
-    zk.repondre(translatedResponse);
-  } catch (e) {
-    zk.repondre("Oops, une erreur est survenue : " + e);
-  }
-}
+  }catch(e){ repondre("oops an error : "+e)}
+    
+  
+  });  
