@@ -49,36 +49,53 @@ const date = moment().format('DD/MM/YYYY');
     ╰───────────────
 ╰─────✧THO-BOT✧─────◆ \n\n`;
     
+
 let menuMsg = `
-👋 Hello how  are you ${nomAuteurMessage} 👋
+👋 Hello how are you ${nomAuteurMessage} 👋
 
 *Liste des commandes de HACKING-MD:*
 ◇                             ◇
 `;
 
-    for (const cat in coms) {
-        menuMsg += ` ╭────💯${cat} ❏ ✧────`;
-        for (const cmd of coms[cat]) {
+// Vérifier si une catégorie spécifique est sélectionnée
+if (commandeOptions.categorie) {
+    const categorieSelectionnee = commandeOptions.categorie;
+    if (coms[categorieSelectionnee]) {
+        menuMsg += `╭────💯${categorieSelectionnee} ❏ ✧────`;
+        for (const cmd of coms[categorieSelectionnee]) {
             menuMsg += `
-*|❏│ ${cmd}*`;
+*|❏│ <i>${cmd}</i>*`;
         }
         menuMsg += `
-╰═════════════⊷ \n`
+╰═════════════⊷\n`;
+    } else {
+        menuMsg += `La catégorie "${categorieSelectionnee}" n'existe pas.\n`;
     }
+} else {
+    for (const cat in coms) {
+        menuMsg += `╭────💯${cat} ❏ ✧────`;
+        for (const cmd of coms[cat]) {
+            menuMsg += `
+*|❏│ <i>${cmd}</i>*`;
+        }
+        menuMsg += `
+╰═════════════⊷ \n`;
+    }
+}
 
-    menuMsg += `
+menuMsg += `
 ◇            ◇
 *»»————— ★ —————««*
-"Mettre la commande, et insert ${prefixe} tu like et la commande_nom."
+"Mettre la commande, et insérez ${prefixe} tu like et la commande_nom."
  
     *Support by HACKING-MD* 
    Voici mon lien 𝗬𝗼𝘂𝘁𝘂𝗯𝗲:"https://youtube.com/@KouameDjakiss?si=k2HqPPSmHBZe3ABd"                                          
 *»»—————    ★   —————««*
 `;
 
-   var lien = mybotpic();
+var lien = mybotpic();
 
-   if (lien.match(/\.(mp4|gif)$/i)) {
+if (lien.match(/\.(mp4|gif)$/i)) {
     try {
         zk.sendMessage(dest, { video: { url: lien }, caption:infoMsg + menuMsg, footer: "Je suis *Hacking-MD*, développé par Thomas+" , gifPlayback : true }, { quoted: ms });
     }
@@ -98,9 +115,6 @@ else if (lien.match(/\.(jpeg|png|jpg)$/i)) {
     }
 } 
 else {
-    
     repondre(infoMsg + menuMsg);
-    
 }
-
 });
