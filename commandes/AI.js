@@ -116,4 +116,44 @@ zokou({ nomCom: "thomas", reaction: "🌏", categorie: "IA" }, async (dest, zk, 
   await repondre(data.result);
   console.log(data.completion);
 });
-  
+
+let botActivated = false;
+
+zokou({nomCom:"bot",reaction:"📡",categorie:"IA"},async(dest,zk,commandeOptions)=>{
+  const {repondre,ms,arg}=commandeOptions;
+
+  // Vérifier si la commande "bot" est activée
+  if(arg && arg[0] === 'on') {
+    botActivated = true;
+    repondre("La commande 'bot' est maintenant activée. Je peux discuter avec vous.");
+    await continuerConversation(dest, zk, arg.slice(1).join(' '));
+  } else if(arg && arg[0] === 'off') {
+    botActivated = false;
+    repondre("La commande 'bot' est maintenant désactivée.");
+  } else if(botActivated) {
+    await continuerConversation(dest, zk, arg.join(' '));
+  } else {
+    repondre("La commande 'bot' est désactivée. Pour l'activer, utilisez 'bot on'.");
+  }
+});
+
+async function continuerConversation(dest, zk, message) {
+  try {
+    // Traduire le message en anglais
+    const messageEnglish = await traduire(message, { to: 'en' });
+    console.log(messageEnglish);
+
+    // Envoyer la requête à BrainShop
+    const response = await fetch(`http://api.brainshop.ai/get?bid=177607&key=NwzhALqeO1kubFVD&uid=[uid]&msg=${messageEnglish}`);
+    const data = await response.json();
+    const botResponse = data.cnt;
+    console.log(botResponse);
+
+    // Traduire la réponse en français
+    const translatedResponse = await traduire(botResponse, { to: 'fr' });
+    repondre(translatedResponse);
+  } catch(e) {
+    repondre("Oops, une erreur est survenue : "+e);
+  }
+}
+
