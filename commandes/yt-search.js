@@ -3,7 +3,8 @@ const { getytlink, ytdwn } = require("../framework/ytdl-core");
 const yts = require("yt-search");
 const ytdl = require('ytdl-core');
 const fs = require('fs');
-
+const youtubedl = require('youtube-dl-exec');
+  
 zokou({ nomCom: "yts", categorie: "Search", reaction: "🐅" }, async (dest, zk, commandeOptions) => {
   const { ms, repondre, arg } = commandeOptions;
   const query = arg.join(" ");
@@ -130,5 +131,57 @@ zokou({
   } catch (error) {
     console.error('Erreur lors de la recherche ou du téléchargement de la vidéo :', error);
     repondre('Une erreur est survenue lors de la recherche ou du téléchargement de la vidéo.');
+  }
+});
+
+
+zokou({
+  nomCom: "mp3",
+  categorie: "Download",
+  reaction: "💿"
+}, async (origineMessage, zk, commandeOptions) => {
+  const { ms, repondre, arg } = commandeOptions;
+
+  if (!arg[0]) {
+    repondre("Insérez un lien YouTube ou une URL de vidéo.");
+    return;
+  }
+
+  try {
+    const videoUrl = arg[0];
+
+    const isYoutubeVideo = ytdl.validateURL(videoUrl);
+
+    let audioUrl = '';
+
+    if (isYoutubeVideo) {
+      const audioInfo = await ytdl.getInfo(videoUrl);
+      const audioFormat = ytdl.chooseFormat(audioInfo.formats, { filter: 'audioonly' });
+
+      if (!audioFormat) {
+        repondre("Impossible de trouver un format audio pour cette vidéo YouTube.");
+        return;
+      }
+
+      audioUrl = audioFormat.url;
+    } else {
+      const { stdout } = await youtubedl(videoUrl, {
+        extractAudio: true,
+        audioFormat: 'mp3',
+        noWarnings: true,
+        noCallHome: true,
+        preferFreeFormats: true,
+        youtubeSkipDashManifest: true
+      });
+
+      audioUrl = stdout.trim();
+    }
+
+    // Envoi du fichier audio en utilisant l'URL
+    zk.sendMessage(origineMessage, { audio: { url: audioUrl }, mimetype: 'audio/mp3' }, { quoted: ms, ptt: false });
+    console.log("Envoi du fichier audio terminé !");
+  } catch (error) {
+    console.error('Erreur lors de la conversion ou du téléchargement de la vidéo :', error);
+    repondre('Une erreur est survenue lors de la conversion ou du téléchargement de la vidéo.');
   }
 });
