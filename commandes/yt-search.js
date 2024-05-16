@@ -3,7 +3,6 @@ const { getytlink, ytdwn } = require("../framework/ytdl-core");
 const yts = require("yt-search");
 const ytdl = require('ytdl-core');
 const fs = require('fs');
-const youtubedl = require('youtube-dl-exec');
   
 zokou({ nomCom: "yts", categorie: "Search", reaction: "🐅" }, async (dest, zk, commandeOptions) => {
   const { ms, repondre, arg } = commandeOptions;
