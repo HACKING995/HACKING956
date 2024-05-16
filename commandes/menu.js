@@ -64,7 +64,7 @@ if (commandeOptions.categorie) {
         menuMsg += `╭────💯${categorieSelectionnee} ❏ ✧────`;
         for (const cmd of coms[categorieSelectionnee]) {
             menuMsg += `
-*|❏│ <i>${cmd}</i>*`;
+*|❏│ ${cmd}*`;
         }
         menuMsg += `
 ╰═════════════⊷\n`;
@@ -76,7 +76,7 @@ if (commandeOptions.categorie) {
         menuMsg += `╭────💯${cat} ❏ ✧────`;
         for (const cmd of coms[cat]) {
             menuMsg += `
-*|❏│ <i>${cmd}</i>*`;
+*|❏│ ${cmd}*`;
         }
         menuMsg += `
 ╰═════════════⊷ \n`;
