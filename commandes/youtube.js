@@ -179,14 +179,12 @@ zokou({
 
       let InfoMess = {
   image: { url: Element.thumbnail },
- let InfoMess = {
-  image: { url: Element.thumbnail },
   caption: `╭━━⊱𝗛𝗔𝗖𝗞𝗜𝗡𝗚-𝗠𝗗⊱━━╮
 *Video Name:* ${Element.title}
 *Uploaded:* ${Element.ago}
 *Author:* ${Element.author.name}
 *URL:* ${Element.url}
-Views: ${videos[0].views}
+*Views:* ${videos[0].views}
 
 *Choose format:*
 1. MP3
