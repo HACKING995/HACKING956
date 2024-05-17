@@ -38,24 +38,31 @@ zokou({ nomCom: "idea", categorie: "IA", reaction:"👨‍🏫", active: isIdeaC
   const randomPresentement = presentement[Math.floor(Math.random() * presentement.length)];
 
   // Custom response for the "idea" command when it is enabled
-  const customResponse = "This is a custom response for the 'idea' command when it is enabled.";
+  const customResponse = `This is a custom response for the 'idea' command when it is enabled.
+Réponse générée le ${new Date().toLocaleString()}.`;
 
   // Check if the "idea" command is enabled
   if (isIdeaCommandEnabled) {
-    // Send the custom response
-    repondre(customResponse);
+    // Ajouter un délai de 60 secondes pour la réponse
+    setTimeout(() => {
+      repondre(customResponse);
+    }, 60000); // 60 secondes (60000 millisecondes)
   } else {
-    // Check the message content and generate a response accordingly
-    if (message.includes('project')) {
-      repondre(` ${randomGreeting} ${randomProjet} ${randomIntroduction}`);
-    } else if (message.includes('book')) {
-      repondre(` ${randomGreeting} How about writing a book on a topic you're knowledgeable about? ${randomIntroduction}`);
-    } else if (message.includes('trip') || message.includes('travel')) {
-      repondre(` ${randomGreeting} Plan a trip to a destination you've always wanted to visit! ${randomIntroduction}`);
-    } else if (message.includes('presentement')) {
-      repondre(` ${randomGreeting} ${randomPresentement} ${randomIntroduction}`);
-    } else {
-      repondre(` ${randomGreeting} I have an idea for you, but I need more information. Could you provide more details? ${randomIntroduction}`);
-    }
+    // Envoyer une réponse indiquant que la commande est désactivée
+    repondre("Désolé, la commande 'idea' est actuellement désactivée.");
+    return;
+  }
+
+  // Vérifier le contenu du message et générer une réponse en conséquence
+  if (message.includes('project')) {
+    repondre(` ${randomGreeting} ${randomProjet} ${randomIntroduction}`);
+  } else if (message.includes('book')) {
+    repondre(` ${randomGreeting} How about writing a book on a topic you're knowledgeable about? ${randomIntroduction}`);
+  } else if (message.includes('trip') || message.includes('travel')) {
+    repondre(` ${randomGreeting} Plan a trip to a destination you've always wanted to visit! ${randomIntroduction}`);
+  } else if (message.includes('presentement')) {
+    repondre(` ${randomGreeting} ${randomPresentement} ${randomIntroduction}`);
+  } else {
+    repondre(` ${randomGreeting} I have an idea for you, but I need more information. Could you provide more details? ${randomIntroduction}`);
   }
 });
