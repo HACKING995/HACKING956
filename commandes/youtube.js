@@ -179,16 +179,20 @@ zokou({
 
       let InfoMess = {
   image: { url: Element.thumbnail },
-  caption: `*Video Name:* ${Element.title}
+ let InfoMess = {
+  image: { url: Element.thumbnail },
+  caption: `╭━━⊱𝗛𝗔𝗖𝗞𝗜𝗡𝗚-𝗠𝗗⊱━━╮
+*Video Name:* ${Element.title}
 *Uploaded:* ${Element.ago}
 *Author:* ${Element.author.name}
 *URL:* ${Element.url}
+Views: ${videos[0].views}
 
 *Choose format:*
 1. MP3
 2. MP4
 
-_*Downloading...*_\n\n`
+_*Downloading...*_`
 };
 
       zk.sendMessage(origineMessage, InfoMess, { quoted: ms });
