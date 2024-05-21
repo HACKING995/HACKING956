@@ -1,4 +1,11 @@
+const { zokou } = require("../framework/zokou");
 const delay = time => new Promise(res => setTimeout(res, time))
+zokou({
+  nomCom: "anti-call",
+  categorie: "User",
+  reaction: "🚫"
+}, async (origineMessage, zk, commandeOptions) => {
+  const { repondre, mentionner } = commandeOptions;
 
 export async function before(m) {
   let bot = global.db.data.settings[this.user.jid] || {}
