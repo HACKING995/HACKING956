@@ -1,4 +1,4 @@
-const { smd, tlang, prefix } = require('../lib');
+
 const { zokou } = require('../framework/zokou');
 
 zokou({
