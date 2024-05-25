@@ -35,8 +35,7 @@ async function genimage(args) {
 
   const response = await axios.post('https://api.onesytex.my.id/api/text2image/generate-image', data, {
     headers: {
-      'accept': '*/*',
-      'Content-Type': 'application/json'
+      'accept': '*/*'
     }
   });
 
