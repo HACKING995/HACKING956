@@ -219,7 +219,7 @@ zokou({ nomCom: "dalle", reaction: "📡", categorie: "IA" }, async (dest, zk, c
       const data = await response.json();
     
       if (data && data.data && data.data.length > 0 && data.data[0].url) {
-        zk.sendMessage(dest, { image: { url: data.data[0].url }, caption: '*Propulsé par ZOKOU-MD*'}, { quoted: ms });
+        zk.sendMessage(dest, { image: { url: data.data[0].url }, caption: '*Propulsé par HACKING-MD*'}, { quoted: ms });
       } else {
         repondre("Erreur lors de la génération de l'image");
       }
