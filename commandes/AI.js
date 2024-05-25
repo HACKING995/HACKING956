@@ -158,40 +158,8 @@ fetch(`http://api.brainshop.ai/get?bid=177607&key=NwzhALqeO1kubFVD&uid=[uid]&msg
   });  
 
 
-/*zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, commandeOptions) => {
-  const { repondre, arg } = commandeOptions;
-  try {
-    if (!arg || arg.length === 0) {
-      return repondre(`Veuillez poser une question.`);
-    } else {
-      const question = arg.join(' ');
-      const response = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${s.GPT}`,
-        },
-        body: JSON.stringify({
-          model: "gpt-3.5-turbo",
-          messages: [{ role: "system", content: "You" }, { role: "user", content: question }],
-        }),
-      });
 
-      const data = await response.json();
-      console.log("GPT REPONSE : ", data); 
-      if (!data.choices || data.choices.length === 0) {
-        repondre("Votre API est invalide, veuillez insérer une nouvelle."); 
-      } else {
-        return repondre(data.choices[0].message.content);
-      }
-    } 
-  } catch (error) {
-    console.error('Erreur:', error.message || 'Une erreur s\'est produite');
-    repondre("Oups, une erreur est survenue lors du traitement de votre demande.");
-  }
-});
-
-zokou({ nomCom: "dalle", reaction: "📡", categorie: "IA" }, async (dest, zk, commandeOptions) => {
+/* zokou({ nomCom: "dalle", reaction: "📡", categorie: "IA" }, async (dest, zk, commandeOptions) => {
   const { repondre, arg, ms } = commandeOptions;
 
   try {
