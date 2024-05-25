@@ -7,7 +7,7 @@ const dbUrl = s.DB;
 zokou(
   {
     nomCom: 'tempest',
-    categorie: 'NEOverse'
+    categorie: '𝐚𝐧𝐢𝐦𝐞'
   },
   async (dest, zk, commandeOptions) => {
     const { ms, repondre, arg, superUser } = commandeOptions;
@@ -127,7 +127,7 @@ zk.sendMessage(dest, { image: { url: 'https://telegra.ph/file/b1ce60fe6773ead61d
 zokou(
   {
     nomCom: 'white',
-    categorie: 'NEOverse'
+    categorie: '𝐚𝐧𝐢𝐦𝐞
   },
   async (dest, zk, commandeOptions) => {
     const { ms, repondre, arg, superUser } = commandeOptions;
@@ -247,7 +247,7 @@ zk.sendMessage(dest, { image: { url: 'https://telegra.ph/file/cb41309bdc49965c72
 zokou(
   {
     nomCom: 'covid',
-    categorie: 'NEOverse'
+    categorie: '𝐚𝐧𝐢𝐦𝐞'
   },
   async (dest, zk, commandeOptions) => {
     const { ms, repondre, arg, superUser } = commandeOptions;
@@ -367,7 +367,7 @@ zk.sendMessage(dest, { image: { url: 'https://telegra.ph/file/a2d21055fdc74f1886
 zokou(
   {
     nomCom: 'ainz',
-    categorie: 'NEOverse'
+    categorie: '𝐚𝐧𝐢𝐦𝐞'
   },
   async (dest, zk, commandeOptions) => {
     const { ms, repondre, arg, superUser } = commandeOptions;
@@ -487,7 +487,7 @@ zk.sendMessage(dest, { image: { url: 'https://telegra.ph/file/5ce67173e0c6d7eed8
 zokou(
   {
     nomCom: 'atsushi',
-    categorie: 'NEOverse'
+    categorie: '𝐚𝐧𝐢𝐦𝐞'
   },
   async (dest, zk, commandeOptions) => {
     const { ms, repondre, arg, superUser } = commandeOptions;
@@ -607,7 +607,7 @@ zk.sendMessage(dest, { image: { url: 'https://telegra.ph/file/7ffebd8d9e828f8363
 zokou(
   {
     nomCom: 'killer',
-    categorie: 'NEOverse'
+    categorie: '𝐚𝐧𝐢𝐦𝐞'
   },
   async (dest, zk, commandeOptions) => {
     const { ms, repondre, arg, superUser } = commandeOptions;
@@ -727,7 +727,7 @@ zk.sendMessage(dest, { image: { url: 'https://telegra.ph/file/f0b79920568b521b85
 zokou(
   {
     nomCom: 'vanitas',
-    categorie: 'NEOverse'
+    categorie: '𝐚𝐧𝐢𝐦𝐞'
   },
   async (dest, zk, commandeOptions) => {
     const { ms, repondre, arg, superUser } = commandeOptions;
@@ -847,7 +847,7 @@ zk.sendMessage(dest, { image: { url: 'https://telegra.ph/file/9e1573e80ee2703848
 zokou(
   {
     nomCom: 'lily',
-    categorie: 'NEOverse'
+    categorie: '𝐚𝐧𝐢𝐦𝐞'
   },
   async (dest, zk, commandeOptions) => {
     const { ms, repondre, arg, superUser } = commandeOptions;
@@ -967,7 +967,7 @@ zk.sendMessage(dest, { image: { url: 'https://telegra.ph/file/4d50790b0a4bf3ef51
 zokou(
   {
     nomCom: 'adorieru',
-    categorie: 'NEOverse'
+    categorie: '𝐚𝐧𝐢𝐦𝐞'
   },
   async (dest, zk, commandeOptions) => {
     const { ms, repondre, arg, superUser } = commandeOptions;
@@ -1087,7 +1087,7 @@ zk.sendMessage(dest, { image: { url: 'https://telegra.ph/file/0b90252030fea1f57e
 zokou(
   {
     nomCom: 'serena',
-    categorie: 'NEOverse'
+    categorie: '𝐚𝐧𝐢𝐦𝐞'
   },
   async (dest, zk, commandeOptions) => {
     const { ms, repondre, arg, superUser } = commandeOptions;
