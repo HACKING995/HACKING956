@@ -2,14 +2,12 @@ const { zokou } = require("../framework/zokou");
 const moment = require("moment-timezone");
 const { default: axios } = require('axios');
 
-zokou({ nomCom: 'hack',
-    desc: 'hacking someones Whatsapp',
-    Categorie: 'General',
-    reaction: '🦠', 
-    fromMe: 'true', 
+const isHackCommandEnabled = true; // Assurez-vous que cette variable est correctement définie
 
-  },
-  async (dest, zk, commandeOptions) => {
+zokou({ nomCom: "hack", categorie: "General", reaction:"👨‍🏫", active: isHackCommandEnabled }, async (dest, zk, commandeOptions) => {
+  const { ms, arg, repondre } = commandeOptions;
+  const message = arg.join(' ');
+  // hack
     const { repondre, arg, ms } = commandeOptions;
 
     await zk.sendMessage(dest, "```thomas-md Injecting malware```");
