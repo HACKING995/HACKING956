@@ -2,12 +2,12 @@ const {zokou}=require("../framework/zokou")
 
 
 
-zokou({nomCom:"voir",categorie:"Général",reaction:"🤲🏿"},async(dest,zk,commandeOptions)=>{
+zokou({nomCom:"vv",categorie:"General",reaction:"🤲🏿"},async(dest,zk,commandeOptions)=>{
 
 const {ms,msgRepondu,repondre}=commandeOptions;
 
 
-if(!msgRepondu){return repondre("*Veuillez mentionner un message envoyé en vue unique* .");}
+if(!msgRepondu){return repondre("*Please mention a message sent in single view* .");}
 
 
 if(msgRepondu.viewOnceMessageV2)
@@ -29,7 +29,7 @@ await zk.sendMessage(dest,{video:{url:video},caption:texte},{quoted:ms})
 }
 }else
 {
-   return repondre("Le message que vous avez mentionné n est pas un message envoyé en vue unique .")
+   return repondre("The message you mentioned is not a single view message .")
 }
 
 
