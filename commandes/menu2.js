@@ -48,12 +48,12 @@ const date = moment().format('DD/MM/YYYY');
 │☹︎│▸ *THEME* : *BELTAH KE*
 │☹︎╰──────────────✇
 ╰──────────────────✇
-> 𝐁𝐄𝐋𝐓𝐀𝐇-𝐌𝐃 𝐕𝟒.𝟎.𝟎 𝐋𝐀𝐓𝐄𝐒𝐓
-> 𝐏𝐎𝐖𝐄𝐑𝐄𝐃 𝐁𝐘 𝐁𝐄𝐋𝐓𝐀𝐇 𝐓𝐄𝐂𝐇\n${readmore}`;
+> 𝐇𝐀𝐂𝐊𝐈𝐍𝐆-𝐌𝐃 𝐍𝐄𝐖 𝐕𝐄𝐑𝐒𝐈𝐎𝐍 𝐋𝐀𝐓𝐄𝐒𝐓
+> 𝐏𝐎𝐖𝐄𝐑𝐄𝐃 𝐁𝐘 𝐓𝐇𝐎𝐌𝐀𝐒 𝐓𝐄𝐂𝐇\n${readmore}`;
     
 let menuMsg = `
 
- *❄︎LIST PLUGINS❄︎*${readmore}
+ *❄︎LIST COMMANDES❄︎*${readmore}
 `;
 
     for (const cat in coms) {
@@ -66,7 +66,7 @@ let menuMsg = `
 ╰────────────···▸▸ \n`
     }
 
-    menuMsg += `> 𝐁𝐄𝐋𝐓𝐀𝐇-𝐌𝐃 𝐕𝟒.𝟎.𝟎 𝐋𝐀𝐓𝐄𝐒𝐓
+    menuMsg += `> 𝐇𝐀𝐂𝐊𝐈𝐍𝐆-𝐌𝐃 𝐍𝐄𝐖 𝐕𝐄𝐑𝐒𝐈𝐎𝐍 𝐋𝐀𝐓𝐄𝐒𝐓
 `;
 
    var lien = mybotpic();
