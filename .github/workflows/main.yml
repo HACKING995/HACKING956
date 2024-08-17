@@ -1,3 +1,5 @@
+Vas voir  tu clique  action 
+
 name: Node.js CI
 
 on:
@@ -27,7 +29,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - name: Install dependencies
-      run: npm install
+      run: npm install -g pm2 &&  npm install
 
     - name: Start application
-      run: npm start
+      run: npm run Hacking
