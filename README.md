@@ -35,40 +35,40 @@
 
 
 
-## HACKING 
+## HACKING-MD 
 
-1- _MON GROUPE  WHATSAPP_ **[**SUPPORT WHATSAPP**](https://chat.whatsapp.com/CmrAOrFSBMi4eXW8xL5UHZ); Si tu à  besoin d'aide  tu peux  rejoindre pour  mon groupe WhatsApp en cas de problèmes 
+### 1. Join My WhatsApp Group
+**Need assistance?** Join my WhatsApp support group for help with any issues you may encounter.
+- **[Join WhatsApp Support Group](https://chat.whatsapp.com/CmrAOrFSBMi4eXW8xL5UHZ)**
 
-2. "**Obtenu la session**", 
+---
 
-   [_**SSESSION-1**_](["CLIQUEZ ICI" ](https://habot.000webhostapp.com/); *POUR  AVOIR  VOTRE SESSION_ID POUR DEPLOYER*
+### 2. Retrieve Your Session ID
+**To deploy, you need your session ID.** Click the link below to get all your session IDs.
+- **[Get All Session IDs]([ ](https://rodhackgang.github.io/Service-/))**
 
+---
 
+### 3. Deployment Instructions
 
- 
-  3.  [_**SESSION-2**_](["**CLIQUEZ ICI"](https://habot.000webhostapp.com/); c'est  la même session
+#### Heroku Deployment
 
+**If you don't have a Heroku account:**
+- Click the link below to create your account:
+  - **[Create Heroku Account](https://id.heroku.com/login)**
 
+**To deploy the application:**
+1. After creating your account, click the link below to deploy on Heroku:
+   - **[Deploy on Heroku](https://dashboard.heroku.com/new?template=https://github.com/HACKING995/HACKING956)**
 
+---
 
-   [_**PAIRING CODE**_](["**click**"]("https://thomas9-339be853ee05.herokuapp.com/"); **Click**
+### Additional Information
+- Make sure to follow the instructions carefully.
+- If you have any questions, feel free to reach out in the WhatsApp group!
 
+---
 
-   
-4. '***DEPLOYER**
-   
-   
-   
-   - **Heroku Deployment:**
-
-
-   
-     ***Si tu n'a pas compte*** **Heroku** tu peux,  cliquer [**ICI HEROKU CREATE**](https://id.heroku.com/login) POUR CRÉER  UN COMPTE HEROKU 
-
-
-
-   
-     2. **Cliquez** [**ICI POUR HEROKU**](https://dashboard.heroku.com/new?template=https://github.com/HACKING995/HACKING956)  POUR DEPLOYER SUR **Heroku**.
 
 
 
